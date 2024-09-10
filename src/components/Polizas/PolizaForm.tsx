@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addPoliza } from "../../services/polizaServiceLocal";
+import { addPoliza } from "../../lib/api/polizasApi";
 
 interface PolizaFormProps {
   onPolizaAdded: () => void;

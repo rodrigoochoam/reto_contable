@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CuentaContable } from "../../types/movimiento";
-import { getCuentasContables } from "../../services/movimientoServiceLocal";
+import { getCuentasContables } from "../../lib/api/movimientosApi";
 import AccountBalanceOutlined from "@mui/icons-material/AccountBalanceOutlined"; // Activo
 import PeopleOutlined from "@mui/icons-material/PeopleOutlined"; // Clientes
 import GroupOutlined from "@mui/icons-material/GroupOutlined"; // Proveedores

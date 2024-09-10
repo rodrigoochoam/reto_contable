@@ -1,4 +1,4 @@
-import { Poliza } from "../types/poliza";
+import { Poliza } from "../../types/poliza";
 
 const POLIZAS_STORAGE_KEY = "polizas";
 
@@ -11,14 +11,14 @@ function setStoredPolizas(polizas: Poliza[]): void {
   localStorage.setItem(POLIZAS_STORAGE_KEY, JSON.stringify(polizas));
 }
 
-export const getPolizas = (): Promise<Poliza[]> => {
+export async function getPolizas(): Promise<Poliza[]> {
   return new Promise((resolve) => {
     const polizas = getStoredPolizas();
     setTimeout(() => resolve(polizas), 100);
   });
-};
+}
 
-export const addPoliza = (poliza: Omit<Poliza, "id">): Promise<Poliza> => {
+export async function addPoliza(poliza: Omit<Poliza, "id">): Promise<Poliza> {
   return new Promise((resolve) => {
     const polizas = getStoredPolizas();
     const newPoliza = { ...poliza, id: Date.now() };
@@ -26,12 +26,12 @@ export const addPoliza = (poliza: Omit<Poliza, "id">): Promise<Poliza> => {
     setStoredPolizas(polizas);
     setTimeout(() => resolve(newPoliza), 100);
   });
-};
+}
 
-export const updatePoliza = (
+export async function updatePoliza(
   id: number,
   poliza: Omit<Poliza, "id">
-): Promise<Poliza> => {
+): Promise<Poliza> {
   return new Promise((resolve, reject) => {
     const polizas = getStoredPolizas();
     const index = polizas.findIndex((p) => p.id === id);
@@ -43,13 +43,13 @@ export const updatePoliza = (
       reject(new Error("Póliza no encontrada"));
     }
   });
-};
+}
 
-export const deletePoliza = (id: number): Promise<void> => {
+export async function deletePoliza(id: number): Promise<void> {
   return new Promise((resolve) => {
     const polizas = getStoredPolizas();
     const updatedPolizas = polizas.filter((p) => p.id !== id);
     setStoredPolizas(updatedPolizas);
     setTimeout(resolve, 100);
   });
-};
+}

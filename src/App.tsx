@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SideNav from "./components/SideNav/SideNav";
-import TopNav from "./components/TopNav/TopNav";
-import PolizasList from "./components/PolizasList/PolizasList";
-import MovimientosPage from "./components/MovimientosPage/MovimientosPage";
+import SideNav from "./components/UI/SideNav/SideNav";
+import PolizasList from "./components/Polizas/PolizasList";
+import MovimientosPage from "./components/Movimientos/MovimientosPage";
 import CuentasContablesPage from "./components/CuentasContablesPage/CuentasContablesPage";
 import ExchangeRates from "./components/ExchangeRates/ExchangeRates";
 const App: React.FC = () => {

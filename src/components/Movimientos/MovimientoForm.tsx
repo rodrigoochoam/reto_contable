@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Movimiento, CuentaContable } from "../../types/movimiento";
 import { Poliza } from "../../types/poliza";
-import { getPolizas } from "../../services/polizaServiceLocal";
+import { getPolizas } from "../../lib/api/polizasApi";
 import {
   getCuentasContables,
   updateCuentaContable,
-} from "../../services/movimientoServiceLocal";
+} from "../../lib/api/movimientosApi";
 import {
   getExchangeRates,
   convertCurrency,
