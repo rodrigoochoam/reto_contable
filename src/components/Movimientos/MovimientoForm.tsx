@@ -89,7 +89,7 @@ const MovimientoForm: React.FC<MovimientoFormProps> = ({
     return parseFloat(movimiento.cargo) + parseFloat(movimiento.abono);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const total1 = calculateTotal(movimiento1);
     const total2 = calculateTotal(movimiento2);
@@ -119,15 +119,23 @@ const MovimientoForm: React.FC<MovimientoFormProps> = ({
     ];
 
     // Update cuentas contables
-    updatedMovimientos.forEach((movimiento) => {
-      updateCuentaContable(
-        movimiento.cuentaContable,
-        movimiento.cargo,
-        movimiento.abono,
-        movimiento.descripcion,
-        movimiento.fecha
-      );
-    });
+    for (const movimiento of updatedMovimientos) {
+      try {
+        await updateCuentaContable(
+          movimiento.cuentaContable,
+          movimiento.cargo,
+          movimiento.abono,
+          movimiento.descripcion,
+          movimiento.fecha
+        );
+      } catch (error) {
+        console.error("Error updating cuenta contable:", error);
+        alert(
+          "Error al actualizar la cuenta contable. Por favor, intente de nuevo."
+        );
+        return;
+      }
+    }
 
     if (movimientos) {
       onMovimientosUpdated(updatedMovimientos);

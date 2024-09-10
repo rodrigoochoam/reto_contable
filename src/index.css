@@ -1,6 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Circular";
+  src: url("/src/components/assets/fonts/lineto-circular-book.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Circular";
+  src: url("/src/components/assets/fonts/lineto-circular-bold.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Circular", sans-serif;
+}
+
 /* 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -86,22 +109,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@font-face {
-  font-family: "Circular";
-  src: url("./assets/fonts/lineto-circular-book.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Circular";
-  src: url("./assets/fonts/lineto-circular-bold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-body {
-  font-family: "Circular", sans-serif;
 }

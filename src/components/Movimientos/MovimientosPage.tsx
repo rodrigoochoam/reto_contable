@@ -11,9 +11,12 @@ import Modal from "../UI/Movimientos/Modal";
 import MovimientosList from "./MovimientosList";
 import MovimientoFilters from "./MovimientoFilters";
 import { useMovimientos } from "../../hooks/useMovimientos";
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import Button from "../UI/Movimientos/Button";
 import Layout from "../Layout/Layout";
+import { Pagination } from "../../lib/utils/Pagination";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import MovimientosReportPDF from "../../Reports/MovimientosReportPDF";
 
 const MovimientosPage: React.FC = () => {
   const {
@@ -35,6 +38,10 @@ const MovimientosPage: React.FC = () => {
   const [editingMovimientos, setEditingMovimientos] = useState<
     Movimiento[] | null
   >(null);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const handleDelete = async (id: number) => {
     await deleteMovimiento(id);
@@ -79,41 +86,72 @@ const MovimientosPage: React.FC = () => {
       <div className="flex justify-end mb-6">
         <Button
           onClick={() => setIsModalOpen(true)}
-          icon={<PlusCircleIcon className="w-5 h-5" />}
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
-          Agregar Movimientos
+          <PlusCircleIcon className="w-5 h-5 mr-2 inline" />
+          Añadir Movimiento
         </Button>
       </div>
-
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <MovimientoForm
-          movimientos={editingMovimientos}
-          onMovimientosAdded={handleMovimientosAdded}
-          onMovimientosUpdated={handleUpdate}
-          onCancel={closeModal}
-        />
-      </Modal>
+      <div className="flex justify-end mb-6">
+        <PDFDownloadLink
+          document={
+            <MovimientosReportPDF polizas={polizas} movimientos={movimientos} />
+          }
+          fileName="movimientos_por_poliza.pdf"
+        >
+          {({ blob, url, loading, error }) =>
+            loading ? (
+              "Generando PDF..."
+            ) : (
+              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <ArrowDownTrayIcon className="w-5 h-5 mr-2 inline" />
+                Descargar Reporte PDF
+              </button>
+            )
+          }
+        </PDFDownloadLink>
+      </div>
 
       <MovimientoFilters
         fechaInicio={fechaInicio}
         fechaFin={fechaFin}
         polizaFilter={polizaFilter}
         cuentaContableFilter={cuentaContableFilter}
-        polizas={polizas}
-        cuentasContables={cuentasContables}
         onFechaInicioChange={setFechaInicio}
         onFechaFinChange={setFechaFin}
         onPolizaFilterChange={setPolizaFilter}
         onCuentaContableFilterChange={setCuentaContableFilter}
+        polizas={polizas}
+        cuentasContables={cuentasContables}
       />
 
       <MovimientosList
-        movimientos={movimientos}
+        movimientos={movimientos.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )}
         polizas={polizas}
         cuentasContables={cuentasContables}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(movimientos.length / itemsPerPage)}
+        onPageChange={setCurrentPage}
+      />
+
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <MovimientoForm
+            movimientos={editingMovimientos || undefined}
+            onMovimientosAdded={handleMovimientosAdded}
+            onMovimientosUpdated={handleUpdate}
+            onCancel={closeModal}
+          />
+        </Modal>
+      )}
     </Layout>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavLinks from "../NavLinks/NavLinks";
 import { PowerIcon } from "@heroicons/react/24/outline";
-import logoContpaq from "../../../assets/logo_contpaqi.png"; // Import the logo
+import logoContpaq from "../../assets/logo_contpaqi.png"; // Import the logo
 
 const SideNav: React.FC = () => {
   return (

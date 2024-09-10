@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Layout from "../Layout/Layout";
 import PolizaForm from "./PolizaForm";
 import { PolizaListItem } from "./PolizaListItem";
 import { FilterSection } from "./FilterSection";
@@ -11,6 +12,7 @@ import {
   PencilIcon,
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
+import { Pagination } from "../../lib/utils/Pagination";
 
 export function PolizasList() {
   const {
@@ -33,13 +35,16 @@ export function PolizasList() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
 
+  //Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   const handleOpenForm = () => setIsFormOpen(true);
   const handleCloseForm = () => setIsFormOpen(false);
 
   return (
-    <div className="container mx-auto mt-8 px-4">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-gray-800">Lista de Pólizas</h2>
+    <Layout title="Lista de Pólizas">
+      <div className="flex justify-end items-center mb-6">
         <div>
           <button
             onClick={handleOpenForm}
@@ -104,34 +109,44 @@ export function PolizasList() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {filteredPolizas.map((poliza) => (
-              <React.Fragment key={poliza.id}>
-                <PolizaListItem
-                  poliza={poliza}
-                  onEdit={() => {}} // Implement edit functionality
-                  onDelete={handleDelete}
-                  onClick={() => handlePolizaClick(poliza.id)}
-                />
-                {selectedPolizaId === poliza.id && (
-                  <tr>
-                    <td colSpan={4}>
-                      <div className="p-6 bg-gray-50">
-                        <h3 className="text-lg font-semibold mb-4 text-gray-800">
-                          Movimientos asociados
-                        </h3>
-                        <PolizaMovimientos
-                          movimientos={movimientos}
-                          cuentasContables={cuentasContables}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </React.Fragment>
-            ))}
+            {filteredPolizas
+              .slice(
+                (currentPage - 1) * itemsPerPage,
+                currentPage * itemsPerPage
+              )
+              .map((poliza) => (
+                <React.Fragment key={poliza.id}>
+                  <PolizaListItem
+                    poliza={poliza}
+                    onEdit={() => {}} // Implement edit functionality
+                    onDelete={handleDelete}
+                    onClick={() => handlePolizaClick(poliza.id)}
+                  />
+                  {selectedPolizaId === poliza.id && (
+                    <tr>
+                      <td colSpan={4}>
+                        <div className="p-6 bg-gray-50">
+                          <h3 className="text-lg font-semibold mb-4 text-gray-800">
+                            Movimientos asociados
+                          </h3>
+                          <PolizaMovimientos
+                            movimientos={movimientos}
+                            cuentasContables={cuentasContables}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
           </tbody>
         </table>
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(filteredPolizas.length / itemsPerPage)}
+        onPageChange={setCurrentPage}
+      />
       {isFormOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
@@ -159,7 +174,7 @@ export function PolizasList() {
           </div>
         </div>
       )}
-    </div>
+    </Layout>
   );
 }
 

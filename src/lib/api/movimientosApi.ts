@@ -90,14 +90,30 @@ export async function getCuentasContables(): Promise<CuentaContable[]> {
 }
 
 export async function updateCuentaContable(
-  cuentaContable: CuentaContable
+  cuentaId: string,
+  cargo: number,
+  abono: number,
+  descripcion: string,
+  fecha: string
 ): Promise<void> {
-  return new Promise((resolve) => {
-    const cuentas = getStoredCuentasContables();
-    const updatedCuentas = cuentas.map((c) =>
-      c.id === cuentaContable.id ? cuentaContable : c
-    );
-    setStoredCuentasContables(updatedCuentas);
-    setTimeout(resolve, 100);
+  return new Promise((resolve, reject) => {
+    try {
+      const cuentas = getStoredCuentasContables();
+      const cuenta = cuentas.find((c) => c.id === cuentaId);
+      if (cuenta) {
+        cuenta.saldoDebe += cargo;
+        cuenta.saldoHaber += abono;
+        if (!cuenta.movimientos) {
+          cuenta.movimientos = [];
+        }
+        cuenta.movimientos.push({ cargo, abono, descripcion, fecha });
+        setStoredCuentasContables(cuentas);
+        resolve();
+      } else {
+        reject(new Error("Cuenta contable no encontrada"));
+      }
+    } catch (error) {
+      reject(error);
+    }
   });
 }
