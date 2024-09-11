@@ -117,3 +117,55 @@ export async function updateCuentaContable(
     }
   });
 }
+
+export function initializeCuentasContables() {
+  const initialCuentasContables: CuentaContable[] = [
+    {
+      id: "1000",
+      nombre: "Bancos",
+      tipo: "Activo",
+      saldoDebe: 0,
+      saldoHaber: 0,
+    },
+    {
+      id: "2000",
+      nombre: "Proveedores",
+      tipo: "Pasivo",
+      saldoDebe: 0,
+      saldoHaber: 0,
+    },
+    {
+      id: "3000",
+      nombre: "Capital Social",
+      tipo: "Capital",
+      saldoDebe: 0,
+      saldoHaber: 0,
+    },
+    {
+      id: "4000",
+      nombre: "Ventas",
+      tipo: "Ingresos",
+      saldoDebe: 0,
+      saldoHaber: 0,
+    },
+    {
+      id: "5000",
+      nombre: "Costos",
+      tipo: "Gastos",
+      saldoDebe: 0,
+      saldoHaber: 0,
+    },
+    {
+      id: "6000",
+      nombre: "Inventario",
+      tipo: "Activo",
+      saldoDebe: 0,
+      saldoHaber: 0,
+    },
+  ];
+
+  const existingCuentasContables = getStoredCuentasContables();
+  if (existingCuentasContables.length === 0) {
+    setStoredCuentasContables(initialCuentasContables);
+  }
+}

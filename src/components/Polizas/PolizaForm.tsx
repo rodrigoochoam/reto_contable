@@ -21,7 +21,6 @@ const PolizaForm: React.FC<PolizaFormProps> = ({ onPolizaAdded }) => {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">Agregar Nueva Póliza</h2>
       <div className="mb-4">
         <label htmlFor="fecha" className="block mb-2">
           Fecha:

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,6 +10,7 @@ import PolizasList from "./components/Polizas/PolizasList";
 import MovimientosPage from "./components/Movimientos/MovimientosPage";
 import CuentasContablesPage from "./components/CuentasContablesPage/CuentasContablesPage";
 import ExchangeRates from "./components/ExchangeRates/ExchangeRates";
+import { initializeCuentasContables } from "./lib/api/movimientosApi";
 
 const App: React.FC = () => {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -17,6 +18,10 @@ const App: React.FC = () => {
   const handleRefresh = () => {
     setRefreshKey((prevKey) => prevKey + 1);
   };
+
+  useEffect(() => {
+    initializeCuentasContables();
+  }, []);
 
   return (
     <Router>
