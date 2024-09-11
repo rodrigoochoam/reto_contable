@@ -9,7 +9,7 @@ import {
 import {
   getExchangeRates,
   convertCurrency,
-} from "../../services/exchangeRateService";
+} from "../../lib/api/exchangeRateService";
 
 interface MovimientoFormProps {
   movimientos?: Movimiento[];

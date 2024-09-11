@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getExchangeRates } from "../../services/exchangeRateService";
+import { getExchangeRates } from "../../lib/api/exchangeRateService";
 
 const ExchangeRates: React.FC = () => {
   const [rates, setRates] = useState<{ [key: string]: number }>({});

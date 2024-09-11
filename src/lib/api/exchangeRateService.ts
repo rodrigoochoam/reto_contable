@@ -1,7 +1,7 @@
 import axios from "axios";
 
-/* const API_KEY = "2ad4b0cf7c0ddae47687bdb6d0921bed";
-const BASE_URL = "http://api.exchangeratesapi.io/v1"; */
+const API_KEY = "2ad4b0cf7c0ddae47687bdb6d0921bed";
+const BASE_URL = "http://api.exchangeratesapi.io/v1";
 
 interface ExchangeRateResponse {
   rates: { [key: string]: number };
@@ -18,7 +18,7 @@ export async function getExchangeRates(): Promise<ExchangeRateResponse> {
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching exchange rates:", error);
+    console.error("Error al obtener los tipos de cambio: ", error);
     throw error;
   }
 }

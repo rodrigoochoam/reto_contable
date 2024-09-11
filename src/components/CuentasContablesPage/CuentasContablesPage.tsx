@@ -10,6 +10,9 @@ import BuildOutlined from "@mui/icons-material/BuildOutlined"; // Equipo
 import AttachMoneyOutlined from "@mui/icons-material/AttachMoneyOutlined"; // Ingresos
 import ShoppingCartCheckoutOutlined from "@mui/icons-material/ShoppingCartCheckoutOutlined"; // Gastos
 import PrecisionManufacturingOutlinedIcon from "@mui/icons-material/PrecisionManufacturingOutlined";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import CuentasContablesReportPDF from "../../Reports/CuentasContablesReportPDF";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
 const CuentasContablesPage: React.FC = () => {
   const [cuentasContables, setCuentasContables] = useState<CuentaContable[]>(
@@ -75,9 +78,26 @@ const CuentasContablesPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Cuentas Contables
-      </h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-800">Cuentas Contables</h1>
+        <PDFDownloadLink
+          document={
+            <CuentasContablesReportPDF cuentasContables={cuentasContables} />
+          }
+          fileName="cuentas_contables_reporte.pdf"
+        >
+          {({ loading }) =>
+            loading ? (
+              "Generando PDF..."
+            ) : (
+              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                <ArrowDownTrayIcon className="w-5 h-5 mr-2" />
+                Descargar Reporte PDF
+              </button>
+            )
+          }
+        </PDFDownloadLink>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {cuentasContables.map(renderTAccount)}
       </div>
