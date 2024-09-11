@@ -5,6 +5,7 @@ import { PolizaListItem } from "./PolizaListItem";
 import { FilterSection } from "./FilterSection";
 import { usePolizasData } from "../../hooks/usePolizasData";
 import { PolizaMovimientos } from "./PolizaMovimientos";
+import { EditPolizaForm } from "./EditPolizaForm";
 import {
   PlusCircleIcon,
   ArrowPathIcon,
@@ -34,6 +35,8 @@ export function PolizasList() {
   } = usePolizasData();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [editingPoliza, setEditingPoliza] = useState<Poliza | null>(null);
 
   //Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +44,25 @@ export function PolizasList() {
 
   const handleOpenForm = () => setIsFormOpen(true);
   const handleCloseForm = () => setIsFormOpen(false);
+
+  const handleOpenEditForm = (poliza: Poliza) => {
+    setEditingPoliza(poliza);
+    setIsEditFormOpen(true);
+  };
+
+  const handleCloseEditForm = () => {
+    setIsEditFormOpen(false);
+    setEditingPoliza(null);
+  };
+
+  const handlePolizaEdited = (updatedPoliza: Poliza) => {
+    const updatedPolizas = filteredPolizas.map((p) =>
+      p.id === updatedPoliza.id ? updatedPoliza : p
+    );
+
+    handleCloseEditForm();
+    handleRefresh();
+  };
 
   return (
     <Layout title="Lista de Pólizas">
@@ -118,7 +140,7 @@ export function PolizasList() {
                 <React.Fragment key={poliza.id}>
                   <PolizaListItem
                     poliza={poliza}
-                    onEdit={() => {}} // Implement edit functionality
+                    onEdit={() => handleOpenEditForm(poliza)}
                     onDelete={handleDelete}
                     onClick={() => handlePolizaClick(poliza.id)}
                   />
@@ -169,6 +191,24 @@ export function PolizasList() {
                 >
                   Cerrar
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {isEditFormOpen && editingPoliza && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Editar Póliza
+              </h3>
+              <div className="mt-2 px-7 py-3">
+                <EditPolizaForm
+                  poliza={editingPoliza}
+                  onPolizaEdited={handlePolizaEdited}
+                  onClose={handleCloseEditForm}
+                />
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@ const SideNav: React.FC = () => {
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
         className="mb-2 flex h-20 items-center justify-start rounded-md bg-white p-4 md:h-40"
-        to="/"
+        to="/polizas"
       >
         <div className="w-32 md:w-40">
           <img src={logoContpaq} alt="ContSys Logo" className="w-full h-auto" />

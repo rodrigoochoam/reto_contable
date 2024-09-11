@@ -8,7 +8,7 @@ import {
 import clsx from "clsx";
 
 const links = [
-  { name: "Inicio", href: "/", icon: HomeIcon },
+  /* { name: "Inicio", href: "/", icon: HomeIcon }, */
   { name: "Pólizas", href: "/polizas", icon: DocumentDuplicateIcon },
   { name: "Movimientos", href: "/movimientos", icon: CurrencyDollarIcon },
   {

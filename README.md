@@ -1,50 +1,83 @@
-# React + TypeScript + Vite
+# Sistema de Gestión Contable
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es un sistema de gestión contable desarrollado con React, TypeScript, y Vite. Proporciona funcionalidades para manejar pólizas, movimientos contables, y cuentas contables, además de integrar tipos de cambio en tiempo real.
 
-Currently, two official plugins are available:
+## Instalación
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Clona este repositorio:
 
-## Expanding the ESLint configuration
+   ```
+   git clone [URL_DEL_REPOSITORIO]
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. Navega al directorio del proyecto:
 
-- Configure the top-level `parserOptions` property like this:
+   ```
+   cd [NOMBRE_DEL_DIRECTORIO]
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+3. Instala las dependencias:
+   ```
+   npm install
+   ```
+
+## Ejecución
+
+Para ejecutar la aplicación en modo de desarrollo:
+
+```
+  npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+La aplicación estará disponible en `http://localhost:5173` (o el puerto que Vite asigne).
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Funcionalidades Desarrolladas
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. **Gestión de Pólizas**: Permite crear, editar, y eliminar pólizas contables. Al hacer clic en una póliza, se muestran los movimientos asociados a ella.
+
+2. **Gestión de Movimientos**: Facilita la creación y edición de movimientos contables asociados a pólizas.
+
+3. **Cuentas Contables**: Visualización y manejo de cuentas contables con saldos actualizados.
+
+4. **Tipos de Cambio**: Integración de tipos de cambio en tiempo real para conversiones monetarias.
+
+5. **Filtros y Búsqueda**: Implementación de filtros para pólizas y movimientos por fecha, descripción, y número de póliza.
+
+6. **Generación de Reportes**: Capacidad para generar y descargar reportes en formato PDF.
+
+## Integración con API Pública
+
+El proyecto utiliza la API de ExchangeRates para obtener tipos de cambio en tiempo real:
+
+- API: ExchangeRates API
+- Endpoint: `http://api.exchangeratesapi.io/v1/latest`
+- Funcionalidad: Obtiene tasas de cambio actualizadas para diferentes monedas.
+
+La integración se realiza en el archivo `src/lib/api/exchangeRateService.ts`.
+
+## Estructura del Proyecto
+
+- `src/components`: Contiene los componentes React de la aplicación.
+- `src/lib/api`: Servicios para interactuar con APIs y almacenamiento local.
+- `src/types`: Definiciones de tipos TypeScript.
+- `src/hooks`: Custom hooks de React para lógica reutilizable.
+- `src/Reports`: Componentes para la generación de reportes PDF.
+
+## Tecnologías Principales
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Hook Form
+- @react-pdf/renderer (para generación de PDFs)
+
+## Notas Adicionales
+
+- La aplicación utiliza almacenamiento local (localStorage) para persistir datos.
+- Se ha implementado un diseño responsivo utilizando Tailwind CSS.
+
+## Autor:
+
+Rodrigo Ochoa Mayagoitia
+Licencia: MIT
