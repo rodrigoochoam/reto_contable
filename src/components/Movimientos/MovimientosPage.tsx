@@ -95,11 +95,18 @@ const MovimientosPage: React.FC = () => {
       <div className="flex justify-end mb-6">
         <PDFDownloadLink
           document={
-            <MovimientosReportPDF polizas={polizas} movimientos={movimientos} />
+            <MovimientosReportPDF
+              polizas={polizas.map((p) => ({
+                ...p,
+                fecha: new Date().toISOString(),
+                descripcion: "",
+              }))}
+              movimientos={movimientos}
+            />
           }
           fileName="movimientos_por_poliza.pdf"
         >
-          {({ blob, url, loading, error }) =>
+          {({ loading }) =>
             loading ? (
               "Generando PDF..."
             ) : (

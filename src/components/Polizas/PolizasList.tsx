@@ -14,6 +14,7 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
 import { Pagination } from "../../lib/utils/Pagination";
+import { Poliza } from "../../types/poliza"; // Adjust the import path as needed
 
 export function PolizasList() {
   const {
@@ -55,11 +56,7 @@ export function PolizasList() {
     setEditingPoliza(null);
   };
 
-  const handlePolizaEdited = (updatedPoliza: Poliza) => {
-    const updatedPolizas = filteredPolizas.map((p) =>
-      p.id === updatedPoliza.id ? updatedPoliza : p
-    );
-
+  const handlePolizaEdited = () => {
     handleCloseEditForm();
     handleRefresh();
   };

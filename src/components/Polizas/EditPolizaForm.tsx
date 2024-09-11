@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Poliza } from "../../types/poliza";
 import { updatePoliza } from "../../lib/api/polizasApi";
@@ -72,19 +71,23 @@ export function EditPolizaForm({
       </div>
       <div>
         <label
-          htmlFor="numero"
+          htmlFor="numeropoliza"
           className="block text-sm font-medium text-gray-700"
         >
           Número de Póliza
         </label>
         <input
           type="text"
-          id="numero"
-          {...register("numero", { required: "Número de Póliza es requerido" })}
+          id="numeropoliza"
+          {...register("numeropoliza", {
+            required: "Número de Póliza es requerido",
+          })}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
-        {errors.numero && (
-          <span className="text-red-500 text-xs">{errors.numero.message}</span>
+        {errors.numeropoliza && (
+          <span className="text-red-500 text-xs">
+            {errors.numeropoliza.message}
+          </span>
         )}
       </div>
       <div className="flex justify-end space-x-2">
