@@ -7,13 +7,13 @@ Este proyecto es un sistema de gestión contable desarrollado con React, TypeScr
 1. Clona este repositorio:
 
    ```
-   git clone [URL_DEL_REPOSITORIO]
+   git clone https://github.com/rodrigoochoam/reto_contable.git
    ```
 
 2. Navega al directorio del proyecto:
 
    ```
-   cd [NOMBRE_DEL_DIRECTORIO]
+   cd reto_contable
    ```
 
 3. Instala las dependencias:
