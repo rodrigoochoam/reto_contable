@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "2ad4b0cf7c0ddae47687bdb6d0921bed";
+const API_KEY = "d8fa5cee06242898165e5ca418338584";
 const BASE_URL = "http://api.exchangeratesapi.io/v1";
 
 interface ExchangeRateResponse {
